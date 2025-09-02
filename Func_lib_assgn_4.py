@@ -102,19 +102,19 @@ def cholesky_solve(A, b):
         for j in range(i + 1):
             if i == j:  # diagonal elements
                 sum_sq = sum(L[i][k] ** 2 for k in range(j))
-                value = A_copy[i][i] - sum_sq
+                value = A[i][i] - sum_sq
                 if value <= 0:
                     raise ValueError(f"Matrix not positive definite at ({i},{i}). Value: {value}")
-                L[i][j] = math.sqrt(value)  # POSITIVE square root!
+                L[i][j] = math.sqrt(value)  
             else:  # off-diagonal elements (j < i)
                 sum_prod = sum(L[i][k] * L[j][k] for k in range(j))
-                L[i][j] = (A_copy[i][j] - sum_prod) / L[j][j]
+                L[i][j] = (A[i][j] - sum_prod) / L[j][j]
 
     # Step 2: Forward substitution - solve L * y = b
     y = [0.0] * n
     for i in range(n):
         sum_val = sum(L[i][j] * y[j] for j in range(i))
-        y[i] = (b_copy[i] - sum_val) / L[i][i]
+        y[i] = (b[i] - sum_val) / L[i][i]
 
     # Step 3: Backward substitution - solve L^T * x = y
     x = [0.0] * n
@@ -123,5 +123,4 @@ def cholesky_solve(A, b):
         x[i] = (y[i] - sum_val) / L[i][i]
 
     return x, L
-
 
