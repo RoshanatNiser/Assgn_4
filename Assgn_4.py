@@ -10,11 +10,12 @@ b=read_vector('N.txt')
 print(A)
 print(b)
 
-# Question_1:
-p=cholesky_solve(A,b)
-x,L= p
-print(x) # Output: 
+# Question_1:Cholesky Decomposition
+print("Cholesky Decomposition")
+x,L=cholesky_solve(A,b)
+print(x) # Output: [-1.1102230246251565e-16, 0.9999999999999999, 1.0, 1.0000000000000004]
 
 # Question_2: Jacobi
+print("Jacobi Method")
 r=jacobi(A, b)
-print(r) # Output: [-4.984900771468886e+120, 4.0254513349757756e+120, 5.119708280191826e+121, -1.0710410128027627e+121] 
+print(r) # Output: [0.0, 0.9999994039535522, 0.9999997019767761, 0.9999997019767761]
