@@ -47,13 +47,12 @@ def jacobi(A, b, x0=None, tol=1e-6, max_iter=1000):
 
     # Step 1: Initialize guess vector x
     if x0 is None:
-        x0 = [0.0] * n  # start with zeros
+        x0 = [0.0] * n  
 
-    x = x0[:]  # make a copy
+    x = x0[:]  
 
     for k in range(max_iter):
-        x_new = [0.0] * n  # to store new values
-
+        x_new = [0.0] * n 
         # Step 2: Compute each x[i] using previous iteration values
         for i in range(n):
             # Calculate sum of a_ij * x_j for j != i
@@ -123,4 +122,5 @@ def cholesky_solve(A, b):
         x[i] = (y[i] - sum_val) / L[i][i]
 
     return x, L
+
 
