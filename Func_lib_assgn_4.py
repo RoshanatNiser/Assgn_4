@@ -77,51 +77,23 @@ def jacobi(A, b, x0=None, tol=1e-6, max_iter=1000):
     print("Jacobi reached maximum iterations")
     return x
 
-def is_symmetric(matrix):
-    """Check if matrix is symmetric"""
-    n = len(matrix)
-    for i in range(n):
-        for j in range(n):
-            if abs(matrix[i][j] - matrix[j][i]) > 1e-10:
-                return False
-    return True
-
-def determinant(matrix):
-    """Calculate determinant recursively"""
-    n = len(matrix)
-    if n == 1:
-        return matrix[0][0]
-    elif n == 2:
-        return matrix[0][0] * matrix[1][1] - matrix[0][1] * matrix[1][0]
-    else:
-        det = 0
-        for col in range(n):
-            submatrix = []
-            for row in range(1, n):
-                subrow = []
-                for c in range(n):
-                    if c != col:
-                        subrow.append(matrix[row][c])
-                submatrix.append(subrow)
-            det += ((-1) ** col) * matrix[0][col] * determinant(submatrix)
-        return det
-
-def is_positive_definite(matrix):
-    """Check if matrix is positive definite using leading principal minors"""
-    n = len(matrix)
-    for k in range(1, n+1):
-        submatrix = [[matrix[i][j] for j in range(k)] for i in range(k)]
-        det = determinant(submatrix)
-        if det <= 0:
-            return False
-    return True
-
 def cholesky_solve(A, b):
     """
     This function solves system of linear equations using Cholesky decomposition
     with forward-backward substitution.
     """
     n = len(A)
+    # Step 0: check if any diagonal element of A is zero. If yes then swap the rows.
+    for i in range(n):
+        if A[i][i] == 0:
+            if i == 0:
+                # Swap with last row
+                A[i], A[-1] = A[-1], A[i]
+                b[i], b[-1] = b[-1], b[i]
+            else:
+                # Swap with previous row
+                A[i], A[i-1] = A[i-1], A[i]
+                b[i], b[i-1] = b[i-1], b[i]
 
     # Step 1: Cholesky decomposition - compute L such that A = L * L^T
     L = [[0.0 for _ in range(n)] for _ in range(n)]
@@ -151,4 +123,5 @@ def cholesky_solve(A, b):
         x[i] = (y[i] - sum_val) / L[i][i]
 
     return x, L
+
 
