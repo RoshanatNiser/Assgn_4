@@ -122,18 +122,6 @@ def cholesky_solve(A, b):
     with forward-backward substitution.
     """
     n = len(A)
-    
-    # Create copies to avoid modifying originals
-    A_copy = [row[:] for row in A]
-    b_copy = b[:]
-    
-    # Check if matrix is symmetric
-    if not is_symmetric(A_copy):
-        raise ValueError("Matrix must be symmetric for Cholesky decomposition")
-    
-    # Check if matrix is positive definite
-    if not is_positive_definite(A_copy):
-        raise ValueError("Matrix must be positive definite for Cholesky decomposition")
 
     # Step 1: Cholesky decomposition - compute L such that A = L * L^T
     L = [[0.0 for _ in range(n)] for _ in range(n)]
@@ -163,3 +151,4 @@ def cholesky_solve(A, b):
         x[i] = (y[i] - sum_val) / L[i][i]
 
     return x, L
+
