@@ -1,3 +1,4 @@
+
 # Assignment 4: Cholesky decomposition and Jacobi
 # Name: Roshan Yadav
 # Roll No: 2311144
@@ -122,5 +123,3 @@ def cholesky_solve(A, b):
         x[i] = (y[i] - sum_val) / L[i][i]
 
     return x, L
-
-
